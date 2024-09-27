@@ -33,13 +33,13 @@
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
           <ul class="navbar-nav me-auto mb-2 mb-lg-0">
             <li class="nav-item">
-              <a class="nav-link active" aria-current="page" href="/">Home</a>
+              <a class="nav-link" aria-current="page" href="/">Home</a>
             </li>
             <li class="nav-item">
               <a class="nav-link" href="/coffee-list.html">Coffees</a>
             </li>
             <li class="nav-item">
-              <a class="nav-link active" href="/table-list.html">Tables</a>
+              <a class="nav-link" href="/table-list.html">Tables</a>
             </li>
           </ul>
         </div>
@@ -48,7 +48,17 @@
     <br>
 
     <div class="container">
-      add order 
+      <form>
+        <div class="mb-3">
+          <label for="exampleSelectTableOrder" class="form-label">Add Order</label>
+          <select id="exampleSelectTableOrder" class="form-select">
+            <option value="1">Espresso</option>
+            <option value="0">Cappuccino</option>
+          </select>
+        </div>
+        <a href="/table-add-order.html" class="btn btn-primary">Add Order</a>
+        <a href="/table.html" class="btn btn-danger">Back to Table</a>
+      </form>
     </div>
 
   </body>
