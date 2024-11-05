@@ -1,0 +1,19 @@
+<%- include('header')-%>
+<%- include('navbar')-%>
+
+    <div class="container">
+      <form>
+        <div class="mb-3">
+          <label for="exampleSelectTableStatus" class="form-label">Table Status Update</label>
+          <select class="form-select" id="exampleSelectTableStatus">
+            <option value="2">Occupied</option>
+            <option value="1">Reserved</option>
+            <option value="0">Empty</option>
+          </select>
+        </div>
+        <a href="/table/updateStatus/:tableId" class="btn btn-primary">Update Status</a>
+        <a href="/table/:tableId" class="btn btn-secondary">Back To Table</a>
+      </form>
+    </div>
+
+<%- include('footer')-%>

@@ -1,0 +1,37 @@
+<%- include('header')%>
+<%- include('navbar')-%>
+
+    <div class="container">
+      <h1>Tables</h1>
+      <br>
+      <div class="row">
+      <% tableList.forEach(function(table){%>
+
+        <div class="col-12 col-sm-4">
+          <div class="card">
+            <div class="card-header text-bg-light"> <%= table.state-%> </div>
+            <div class="card-body">
+              <h5 class="card-title"> Table <%= table.number-%></h5>
+            </div>
+            <div class="card-body">
+              <a href="/table/<%=table._id%>" class="btn btn-small btn-primary">Update</a>
+              <a href="/table/delete/:table-id" class="btn btn-small btn-danger">Delete</a>
+            </div>
+          </div>
+        </div>
+
+      <% }); %>
+      </div>
+
+    <div class="container">
+      <div class="row">
+        <div class="col-12">
+          <br />
+          <div class="d-grid gap-2">
+            <a href="/" class="btn btn-primary">Add new table</a>
+          </div>
+        </div>
+      </div>
+    </div>
+
+<%- include('footer')-%>

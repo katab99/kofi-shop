@@ -2,8 +2,8 @@
  * Render view.
  */
 
-module.exports = function (objectrepository) {
-  return function (req, res, next) {
-    return next();
+module.exports = function (objectRepository, viewName, options) {
+  return function (req, res) {
+    res.render(viewName, {...options, ...res.locals});
   };
 };
