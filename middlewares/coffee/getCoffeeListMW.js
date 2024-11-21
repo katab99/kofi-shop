@@ -7,21 +7,21 @@ module.exports = function (objectRepository) {
     res.locals.coffeeList = [
       {
         _id: '1',
-        name: 'Espresso',
+        name: 'espresso',
         price: '430',
-        state: 'Available'
+        state: 'available'
       },
       {
         _id: '2',
-        name: 'Cappuccino',
+        name: 'cappuccino',
         price: '520',
-        state: 'Not Available'
+        state: 'unavailable'
       },
       {
         _id: '3',
-        name: 'Americano',
+        name: 'americano',
         price: '430',
-        state: 'Available'
+        state: 'available'
       },
     ];
 

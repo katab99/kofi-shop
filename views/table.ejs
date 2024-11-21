@@ -2,7 +2,14 @@
 <%- include('navbar')-%>
 
     <div class="container">
-      <h1> Table #1 <span class="badge rounded-pill text-bg-success">Occupied</span></h1>      
+      <h1> Table <%=table.num%> <span class="badge rounded-pill
+      <%if(table.state === 'Empty'){
+        %> text-bg-dark">Empty<%
+        }else if(table.state === 'Occupied'){
+        %>text-bg-success">Occupied<%
+        }else{
+        %> text-bg-danger">Reserved<%
+        }%> </span></h1>
       <br>
   
         <h3>Orders</h3>
@@ -14,18 +21,14 @@
                 <th>Price</th>
                 <th>&nbsp;</th>
               </tr>
+
+              <% table.orders.forEach(function(order){%>
               <tr>
-                <td>Latte</td>
-                <td>570</td>
+                <td><%= order.name%></td>
+                <td><%= order.price%></td>
                 <td><a href="/table/delete/:table-id" class="btn btn-small btn-danger">Delete Item</a></td>
               </tr>
-              <tr>
-                <td>Espresso</td>
-                <td>430</td>
-                <td><a href="/table/delete/:table-id" class="btn btn-small btn-danger">Delete Item</a></td>
-              </tr>
-              <tr>
-              </tr>
+              <% }); %>
             </table>
 
             <div class="d-grid gap-2 d-md-flex justify-content-md-end">

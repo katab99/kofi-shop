@@ -7,37 +7,37 @@ module.exports = function (objectRepository) {
     res.locals.tableList = [
       {
         _id: 1,
-        number: 1,
+        num: 1,
         orders: [{
           _id : 1,
-          name: 'Espresso',
+          name: 'espresso',
           price: 430,
-          state: 'Available'
+          state: 'available'
         }, {
           _id : 1,
-          name: 'Espresso',
+          name: 'espresso',
           price: 430,
-          state: 'Available'
+          state: 'available'
         }],
-        state: 'Occupied'
+        state: 'occupied'
       },
       {
         _id: 2,
-        number: 2,
+        num: 2,
         orders: [],
-        state: 'Reserved'
+        state: 'reserved'
       },
       {
         _id: 3,
-        number: 3,
+        num: 3,
         orders: [],
-        state: 'Empty'
+        state: 'empty'
       },
       {
         _id: 4,
-        number: 4,
+        num: 4,
         orders: [],
-        state: 'Empty'
+        state: 'empty'
       },
     ];
     return next();

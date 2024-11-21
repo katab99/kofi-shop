@@ -1,5 +1,5 @@
 <%- include('header')%>
-<%- include('navbar')-%>
+<%- include('navbar', {page : 'tables'})-%>
 
     <div class="container">
       <h1>Tables</h1>
@@ -9,9 +9,15 @@
 
         <div class="col-12 col-sm-4">
           <div class="card">
-            <div class="card-header text-bg-light"> <%= table.state-%> </div>
+            <div class="card-header <%if(table.state === 'empty'){
+            %> text-bg-light<%
+            }else if(table.state === 'occupied'){
+            %>text-bg-success<%
+            }else if(table.state === 'reserved'){
+            %> text-bg-danger<%
+            }%> "> <%= table.state-%> </div>
             <div class="card-body">
-              <h5 class="card-title"> Table <%= table.number-%></h5>
+              <h5 class="card-title"> Table <%= table.num-%></h5>
             </div>
             <div class="card-body">
               <a href="/table/<%=table._id%>" class="btn btn-small btn-primary">Update</a>

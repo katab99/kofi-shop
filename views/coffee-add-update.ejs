@@ -2,31 +2,38 @@
 <%- include('navbar')-%>
 
     <div class="container">
-      <h1> Coffee</h1>
+      <h1> <% if (typeof coffee === 'undefined') { %>
+          New
+        <%} else {%>
+          Update
+        <%}%> Coffee </h1>
       <br>
   
-        <form>
+        <form method="POST">
+          <input type="hidden" name="_id" value="<%(typeof coffee === 'undefined') ? '' : coffee._id%>"/>
           <div class="mb-3">
             <label for="exampleInputCoffeeName" class="form-label">Coffee Name</label>
-            <input type="text" class="form-control" id="exampleInputCoffeeName" aria-describedby="coffeeNameHelp">
-            <div id="coffeeNameHelp" class="form-text"> Write the name of the new coffee you want to update. </div>
+            <input type="text" class="form-control" id="exampleInputCoffeeName" aria-describedby="coffeeNameHelp" value="<%= (typeof coffee === 'undefined') ? '' : coffee.name%>">
+            <div id="coffeeNameHelp" class="form-text"> Write the name of the new coffee you want to
+              <%if (typeof coffee === 'undefined'){%> add. <%} else {%> update to. <%}%> </div>
           </div>
           
           <div class="mb-3">
             <label for="exampleInputCoffeePrice" class="form-label">Price</label>
-            <input type="number" class="form-control" id="exampleInputCoffeePrice" aria-describedby="coffeePriceHelp">
+            <input type="number" class="form-control" id="exampleInputCoffeePrice" aria-describedby="coffeePriceHelp" value="<%= (typeof coffee === 'undefined') ? '' : coffee.price%>">
             <div id="coffeePriceHelp" class="form-text"> Give the price in HUF. </div>
           </div>
   
           <div class="mb-3">
             <label for="exampleInputCoffeeStatus" class="form-select>">State</label>
             <select class="form-select" id="exampleInputCoffeeStatus">
-              <option value="1">Available</option>
-              <option value="0">Unavailable</option>
+              <option value="1"<% if (typeof coffee !== 'undefined' && coffee.state === 'available'){%> selected <%}%>>Available</option>
+              <option value="0"<% if (typeof coffee !== 'undefined' && coffee.state === 'unavailable'){%> selected <%}%>>Unavailable</option>
             </select>
           </div>
   
-          <a href="/coffee" class="btn btn-primary">Submit</a>
+          <input type="submit" href="/coffee" class="btn btn-primary" value="Submit"/>
+          <a href="/coffee" class="btn btn-secondary">Cancel</a>
         </form>
   
       </div>
