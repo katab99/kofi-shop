@@ -14,9 +14,16 @@ const deleteCoffeeFromTableMW = require("../middlewares/table/deleteCoffeeFromTa
 
 const renderMW = require("../middlewares/renderMW")
 
+//models
+const CoffeeModel = require("../models/coffee")
+const TableModel = require("../models/table")
+
 // routing
 module.exports = (app) => {
-    const objectRepository = {}
+    const objectRepository = {
+        CoffeeModel : CoffeeModel,
+        TableModel : TableModel,
+    }
 
     app.get('/',
         renderMW(objectRepository, 'index')
@@ -28,8 +35,8 @@ module.exports = (app) => {
     )
 
     app.use('/coffee/delete/:coffeeId',
+        getCoffeeMW(objectRepository),
         deleteCoffeeMW(objectRepository),
-        // TODO : redirect to route -> /coffee
     )
 
     app.use('/coffee/new',
