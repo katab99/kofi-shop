@@ -22,7 +22,7 @@
                 <th>&nbsp;</th>
               </tr>
 
-              <% table.orders.forEach(function(order){%>
+              <% orders.forEach(function(order){%>
               <tr>
                 <td><%= order.name%></td>
                 <td><%= order.price%></td>
@@ -32,7 +32,7 @@
             </table>
 
             <div class="d-grid gap-2 d-md-flex justify-content-md-end">
-              <a href="/table/addOrder/:tableId/:coffeeId" class="btn btn-primary">Add Order</a>
+              <a href="/table/addOrder/<%=table._id%>" class="btn btn-primary">Add Order</a>
               <a href="/table/updateStatus/:tableId" class="btn btn-primary">Update Table Status</a>
               <a href="/" class="btn btn-danger">Clear Table</a>
             </div>

@@ -5,11 +5,14 @@ const deleteCoffeeMW = require("../middlewares/coffee/deleteCoffeeMW")
 
 const getTableListMW = require("../middlewares/table/getTableListMW")
 const getTableMW = require("../middlewares/table/getTableMW")
-const createTableMW = require("../middlewares/table/createTableMW")
+const defaultTableMW = require("../middlewares/table/defaultTableMW")
+
+const getOrderListMW = require("../middlewares/table/getOrderListMW")
+
 const saveTableMW = require("../middlewares/table/saveTableMW")
 const deleteTableMW = require("../middlewares/table/deleteTableMW")
 const setTableToDefaultMW = require("../middlewares/table/setTableToDefaultMW")
-const saveCoffeeToTableMW = require("../middlewares/table/saveCoffeeToTableMW")
+const addOrderMW = require("../middlewares/table/addOrderMW")
 const deleteCoffeeFromTableMW = require("../middlewares/table/deleteCoffeeFromTableMW")
 
 const renderMW = require("../middlewares/renderMW")
@@ -55,26 +58,27 @@ module.exports = (app) => {
         renderMW(objectRepository, 'table-list')
     )
 
-    app.get('/table/:tableId',
-        getTableMW(objectRepository),
-        renderMW(objectRepository, 'table')
-    )
-
-    // TODO : add new table route
     app.use('/table/new',
-        createTableMW(objectRepository),
-        // ...
+        getTableListMW(objectRepository),
+        defaultTableMW(objectRepository),
     )
 
     app.use('/table/delete/:tableId',
+        getTableMW(objectRepository),
         deleteTableMW(objectRepository),
-        // TODO : redirect to route -> /table
     )
 
-    app.use('/table/addOrder/:tableId/:coffeeId',
+    app.get('/table/:tableId',
+        getTableMW(objectRepository),
+        getOrderListMW(objectRepository),
+        renderMW(objectRepository, 'table')
+    )
+
+    app.use('/table/addOrder/:tableId',
         getTableMW(objectRepository),
         getCoffeeListMW(objectRepository),
-        saveCoffeeToTableMW(objectRepository),
+        addOrderMW(objectRepository),
+        //TODO
         renderMW(objectRepository, 'table-add-order')
     )
 

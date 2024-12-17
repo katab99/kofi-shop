@@ -2,16 +2,20 @@
 <%- include('navbar', {page : ''})-%>
 
     <div class="container">
-      <form>
+      <form method="POST">
         <div class="mb-3">
           <label for="exampleSelectTableOrder" class="form-label">Add Order</label>
-          <select id="exampleSelectTableOrder" class="form-select">
-            <option value="1">Espresso</option>
-            <option value="0">Cappuccino</option>
+          <select name="coffeeId" id="exampleSelectTableOrder" class="form-select">
+            <% coffeeList.forEach(function(coffee){
+              if(coffee.state === 'available'){%>
+              <option value="<%=coffee._id%>"><%=coffee.name%></option>
+            <%}})%>
           </select>
         </div>
-        <a href="/table/addOrder/:tableId/:coffeeId" class="btn btn-primary">Add Order</a>
-        <a href="/table/:tableId" class="btn btn-secondary">Cancel</a>
+
+
+        <input type="submit" href="/table/<%=table._id%>" class="btn btn-primary" value="Add Order">
+        <a href="/table/<%=table._id%>" class="btn btn-secondary">Cancel</a>
       </form>
     </div>
 

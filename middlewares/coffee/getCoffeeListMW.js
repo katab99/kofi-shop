@@ -9,11 +9,10 @@ module.exports = function (objectRepository) {
 
     return async function (req, res, next) {
     try {
-      const coffees = await CoffeeModel.find({});
-      res.locals.coffeeList = coffees;
-      return next();
+      res.locals.coffeeList = await CoffeeModel.find({})
+      return next()
     } catch (err) {
-      return next(err);
+      return next(err)
     }
   }
 }

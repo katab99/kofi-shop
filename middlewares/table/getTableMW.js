@@ -1,24 +1,18 @@
 /**
  * Get a table by id.
  */
+
+const requireOption = require('../requireOption')
+
 module.exports = function (objectRepository) {
-  return function (req, res, next) {
-    res.locals.table = {
-        _id: 1,
-        num: 1,
-        orders: [{
-          _id : 1,
-          name: 'espresso',
-          price: 430,
-          state: 'available'
-        }, {
-          _id : 1,
-          name: 'espresso',
-          price: 430,
-          state: 'available'
-        }],
-        state: 'reserved'
-      }
-    return next();
-  };
-};
+    const TableModel = requireOption(objectRepository, 'TableModel')
+
+    return async function (req, res, next) {
+        try {
+            res.locals.table = await TableModel.findOne({ _id: req.params.tableId })
+            return next()
+        } catch (err) {
+            return next(err)
+        }
+    }
+}
