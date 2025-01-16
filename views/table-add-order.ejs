@@ -6,15 +6,15 @@
         <div class="mb-3">
           <label for="exampleSelectTableOrder" class="form-label">Add Order</label>
           <select name="coffeeId" id="exampleSelectTableOrder" class="form-select">
-            <% coffeeList.forEach(function(coffee){
+              <option value="" disabled="disabled" selected>-- select a coffee --</option>
+              <% coffeeList.forEach(function(coffee){
               if(coffee.state === 'available'){%>
               <option value="<%=coffee._id%>"><%=coffee.name%></option>
             <%}})%>
           </select>
         </div>
 
-
-        <input type="submit" href="/table/<%=table._id%>" class="btn btn-primary" value="Add Order">
+        <input type="submit" href="/table/<%=table._id%>/addOrder" class="btn btn-primary" value="Add Order">
         <a href="/table/<%=table._id%>" class="btn btn-secondary">Cancel</a>
       </form>
     </div>

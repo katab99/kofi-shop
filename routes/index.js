@@ -38,20 +38,20 @@ module.exports = (app) => {
         renderMW(objectRepository, 'coffee-list')
     )
 
-    app.use('/coffee/delete/:coffeeId',
-        getCoffeeMW(objectRepository),
-        deleteCoffeeMW(objectRepository),
-    )
-
     app.use('/coffee/new',
         saveCoffeeMW(objectRepository),
         renderMW(objectRepository, 'coffee-add-update')
     )
 
-    app.use('/coffee/edit/:coffeeId',
+    app.use('/coffee/:coffeeId/edit',
         getCoffeeMW(objectRepository),
         saveCoffeeMW(objectRepository),
         renderMW(objectRepository, 'coffee-add-update')
+    )
+
+    app.use('/coffee/:coffeeId/delete',
+        getCoffeeMW(objectRepository),
+        deleteCoffeeMW(objectRepository),
     )
 
     app.get('/table',
@@ -64,9 +64,32 @@ module.exports = (app) => {
         defaultTableMW(objectRepository),
     )
 
-    app.use('/table/delete/:tableId',
+    app.use('/table/:tableId/delete',
         getTableMW(objectRepository),
         deleteTableMW(objectRepository),
+    )
+    app.use('/table/:tableId/addOrder',
+        getTableMW(objectRepository),
+        getCoffeeListMW(objectRepository),
+        addOrderMW(objectRepository),
+        renderMW(objectRepository, 'table-add-order')
+    )
+
+    app.use('/table/:tableId/updateStatus',
+        getTableMW(objectRepository),
+        updateTableStateMW(objectRepository),
+        renderMW(objectRepository, 'table-status-update')
+    )
+
+    app.use('/table/:tableId/deleteOrder/:coffeeId',
+        getTableMW(objectRepository),
+        getCoffeeMW(objectRepository),
+        deleteOrderMW(objectRepository),
+    )
+
+    app.use('/table/:tableId/clear',
+        getTableMW(objectRepository),
+        setTableToDefaultMW(objectRepository),
     )
 
     app.get('/table/:tableId',
@@ -75,27 +98,5 @@ module.exports = (app) => {
         renderMW(objectRepository, 'table')
     )
 
-    app.use('/table/addOrder/:tableId',
-        getTableMW(objectRepository),
-        getCoffeeListMW(objectRepository),
-        addOrderMW(objectRepository),
-        renderMW(objectRepository, 'table-add-order')
-    )
 
-    app.use('/table/updateStatus/:tableId',
-        getTableMW(objectRepository),
-        updateTableStateMW(objectRepository),
-        renderMW(objectRepository, 'table-status-update')
-    )
-
-    app.use('/table/deleteOrder/:tableId/:coffeeId',
-        getTableMW(objectRepository),
-        getCoffeeMW(objectRepository),
-        deleteOrderMW(objectRepository),
-    )
-
-    app.use('/table/clear/:tableId/',
-        getTableMW(objectRepository),
-        setTableToDefaultMW(objectRepository),
-        )
 }

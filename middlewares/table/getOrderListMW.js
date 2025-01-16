@@ -13,7 +13,6 @@ module.exports = function(objectRepository) {
 
         try{
             res.locals.orders = []
-
             // to hand over a list of orders -> res.locals.orders
             for(let order of res.locals.table._orders) {
                 res.locals.orders.push(await CoffeeModel.findOne({ _id : order}))

@@ -1,13 +1,29 @@
 /**
  * Create or update a table to default parameters.
  */
-
-// first just do the create a new table, then do the set to default parameters if the table exists
-
 const requireOption = require('../requireOption')
 
 module.exports = function (objectRepository) {
     const tableModel = requireOption(objectRepository, 'TableModel')
+
+    // to give the smallest available number to the table
+    function setTableNum(tableList){
+        const tableNums = tableList.map(item => item.num)
+
+        if (tableNums.length === 0 || Math.min(...tableNums) !== 1){
+            return 1
+        }
+
+        const maxTableNum = Math.max(...tableNums)
+
+        for(let i = 0; i < maxTableNum; i++){
+            if(tableNums[i+1] - tableNums[i] !== 1){
+                return tableNums[i] + 1
+            }
+        }
+        return maxTableNum + 1
+    }
+
 
     return async function (req, res, next) {
         try{
@@ -15,12 +31,7 @@ module.exports = function (objectRepository) {
                 res.locals.table = new tableModel()
             }
 
-
-
-            // find the biggest table number -> LATER : if not continuous than that number
-            const maxTableNum = Math.max(...res.locals.tableList.map(item => item.num))
-            res.locals.table.num = maxTableNum + 1
-
+            res.locals.table.num = setTableNum(res.locals.tableList)
             res.locals.table.state = 'empty'
             res.locals.table._orders = []
 

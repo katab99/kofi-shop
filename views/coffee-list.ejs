@@ -20,8 +20,8 @@
                 <td><%= coffee.price%></td>
                 <td><%= coffee.state%></td>
                 <td>
-                  <a href="/coffee/edit/<%= coffee._id %>" class="btn btn-small btn-primary">Update</a>
-                  <a href="/coffee/delete/<%= coffee._id %>" class="btn btn-small btn-danger">Delete</a>
+                  <a href="/coffee/<%= coffee._id %>/edit" class="btn btn-small btn-primary">Update</a>
+                  <a href="/coffee/<%= coffee._id %>/delete" class="btn btn-small btn-danger">Delete</a>
                 </td>
               </tr>
             <% }); %>

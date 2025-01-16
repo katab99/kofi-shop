@@ -15,13 +15,13 @@
             %>text-bg-success<%
             }else if(table.state === 'reserved'){
             %> text-bg-danger<%
-            }%> "> <%= table.state-%> </div>
+            }%> "> <%= table.state.charAt(0).toUpperCase() + table.state.slice(1)-%> </div>
             <div class="card-body">
               <h5 class="card-title"> Table <%= table.num-%></h5>
             </div>
             <div class="card-body">
               <a href="/table/<%=table._id%>" class="btn btn-small btn-primary">Update</a>
-              <a href="/table/delete/<%=table._id%>" class="btn btn-small btn-danger">Delete</a>
+              <a href="/table/<%=table._id%>/delete" class="btn btn-small btn-danger">Delete</a>
             </div>
           </div>
         </div>

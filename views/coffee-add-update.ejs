@@ -12,9 +12,9 @@
         <form method="POST">
           <input type="hidden" name="_id" value="<%= typeof coffee === 'undefined' ? '' : coffee._id%>"/>
           <div class="mb-3">
-            <label for="exampleInputCoffeeName" class="form-label">Coffee Name</label>
-            <input type="text" name="name" class="form-control" id="exampleInputCoffeeName" aria-describedby="coffeeNameHelp" value="<%= (typeof coffee === 'undefined') ? '' : coffee.name%>">
-            <div id="coffeeNameHelp" class="form-text"> Write the name of the new coffee you wasnt to
+            <label for="coffeeName" class="form-label">Coffee Name</label>
+            <input type="text" name="name" class="form-control" id="coffeeName" aria-describedby="coffeeNameHelp" value="<%= (typeof coffee === 'undefined') ? '' : coffee.name%>">
+            <div id="coffeeNameHelp" class="form-text"> Write the name of the new coffee you wasn't to
               <%if (typeof coffee === 'undefined'){%> add. <%} else {%> update to. <%}%> </div>
           </div>
 
@@ -27,6 +27,7 @@
           <div class="mb-3">
             <label for="exampleInputCoffeeStatus" class="form-select>">State</label>
             <select name="state" class="form-select" id="exampleInputCoffeeStatus">
+              <option value="" disabled="disabled" selected="selected">-- select a state --</option>
               <option value="available"<% if (typeof coffee !== 'undefined' && coffee.state === 'available'){%> selected <%}%>>Available</option>
               <option value="unavailable"<% if (typeof coffee !== 'undefined' && coffee.state === 'unavailable'){%> selected <%}%>>Unavailable</option>
             </select>
