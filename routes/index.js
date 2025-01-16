@@ -8,12 +8,13 @@ const getTableMW = require("../middlewares/table/getTableMW")
 const defaultTableMW = require("../middlewares/table/defaultTableMW")
 
 const getOrderListMW = require("../middlewares/table/getOrderListMW")
+const addOrderMW = require("../middlewares/table/addOrderMW")
+const deleteOrderMW = require("../middlewares/table/deleteOrderMW")
 
 const saveTableMW = require("../middlewares/table/saveTableMW")
 const deleteTableMW = require("../middlewares/table/deleteTableMW")
 const setTableToDefaultMW = require("../middlewares/table/setTableToDefaultMW")
-const addOrderMW = require("../middlewares/table/addOrderMW")
-const deleteCoffeeFromTableMW = require("../middlewares/table/deleteCoffeeFromTableMW")
+const updateTableStateMW = require("../middlewares/table/updateTableStateMW")
 
 const renderMW = require("../middlewares/renderMW")
 
@@ -78,27 +79,23 @@ module.exports = (app) => {
         getTableMW(objectRepository),
         getCoffeeListMW(objectRepository),
         addOrderMW(objectRepository),
-        //TODO
         renderMW(objectRepository, 'table-add-order')
     )
 
     app.use('/table/updateStatus/:tableId',
         getTableMW(objectRepository),
-        saveTableMW(objectRepository),
+        updateTableStateMW(objectRepository),
         renderMW(objectRepository, 'table-status-update')
     )
 
-    // TODO : add delete item route
-    app.use('/table/delete/:tableId/:coffeeId',
+    app.use('/table/deleteOrder/:tableId/:coffeeId',
         getTableMW(objectRepository),
         getCoffeeMW(objectRepository),
-        deleteCoffeeFromTableMW(objectRepository),
-        // ...
-        )
+        deleteOrderMW(objectRepository),
+    )
 
-    // TODO : add clear table route - sets the table to default state
     app.use('/table/clear/:tableId/',
+        getTableMW(objectRepository),
         setTableToDefaultMW(objectRepository),
-        // ...
         )
 }

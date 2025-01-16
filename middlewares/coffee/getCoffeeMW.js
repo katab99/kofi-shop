@@ -9,9 +9,9 @@ module.exports = function (objectRepository) {
 
     return async function (req, res, next) {
         try {
-            console.log(req.params.coffeeId)
+            //console.log(req.params.coffeeId)
             res.locals.coffee = await CoffeeModel.findOne({ _id: req.params.coffeeId })
-            console.log(res.locals.coffee)
+            //console.log(res.locals.coffee)
             return next()
         } catch (err) {
             return next(err);

@@ -2,17 +2,21 @@
 <%- include('navbar', {page : ''})-%>
 
     <div class="container">
-      <form>
+      <form method="POST">
+<!--        <input type="hidden" name="_id" value="<%=table._id%>"/>-->
         <div class="mb-3">
           <label for="exampleSelectTableStatus" class="form-label">Table Status Update</label>
-          <select class="form-select" id="exampleSelectTableStatus">
-            <option value="2" <%if(table.state === 'occupied'){%> selected <%}%>>Occupied</option>
-            <option value="1" <%if(table.state === 'reserved'){%> selected <%}%>>Reserved</option>
-            <option value="0" <%if(table.state === 'empty'){%> selected <%}%>>Empty</option>
+          <select name="state" class="form-select"  id="exampleSelectTableStatus">
+<!--            <option disabled selected value> &#45;&#45; select an option &#45;&#45; </option>-->
+            <option value="occupied" <%if(table.state === 'occupied'){%> selected <%}%>>Occupied</option>
+            <option value="reserved" <%if(table.state === 'reserved'){%> selected <%}%>>Reserved</option>
+            <option value="empty" <%if(table.state === 'empty'){%> selected <%}%>>Empty</option>
           </select>
         </div>
-        <a href="/table/updateStatus/:tableId" class="btn btn-primary">Update Status</a>
-        <a href="/table/:tableId" class="btn btn-secondary">Cancel</a>
+
+        <input type="submit" href="/table/" class="btn btn-primary" value="Update Status"/>
+<!--        <a href="/table/updateStatus/" class="btn btn-primary">Update Status</a>-->
+        <a href="/table/<%=table._id%>" class="btn btn-secondary">Cancel</a>
       </form>
     </div>
 

@@ -26,15 +26,15 @@
               <tr>
                 <td><%= order.name%></td>
                 <td><%= order.price%></td>
-                <td><a href="/table/delete/:table-id" class="btn btn-small btn-danger">Delete Item</a></td>
+                <td><a href="/table/deleteOrder/<%=table._id%>/<%=order._id%>" class="btn btn-small btn-danger">Delete Item</a></td>
               </tr>
               <% }); %>
             </table>
 
             <div class="d-grid gap-2 d-md-flex justify-content-md-end">
               <a href="/table/addOrder/<%=table._id%>" class="btn btn-primary">Add Order</a>
-              <a href="/table/updateStatus/:tableId" class="btn btn-primary">Update Table Status</a>
-              <a href="/" class="btn btn-danger">Clear Table</a>
+              <a href="/table/updateStatus/<%=table._id%>" class="btn btn-primary">Update Table Status</a>
+              <a href="/table/clear/<%=table._id%>" class="btn btn-danger">Clear Table</a>
             </div>
 
           </div>

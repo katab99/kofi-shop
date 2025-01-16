@@ -15,10 +15,12 @@ module.exports = function (objectRepository) {
                 res.locals.table = new tableModel()
             }
 
+
+
             // find the biggest table number -> LATER : if not continuous than that number
             const maxTableNum = Math.max(...res.locals.tableList.map(item => item.num))
-
             res.locals.table.num = maxTableNum + 1
+
             res.locals.table.state = 'empty'
             res.locals.table._orders = []
 
