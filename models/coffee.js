@@ -1,10 +1,10 @@
-const Schema = require('mongoose').Schema
-const db = require('../config/db')
+const Schema = require("mongoose").Schema;
+const { mongoose } = require("../config/db");
 
-const Coffee = db.model('Coffee', {
-    name : String,
-    price : Number,
-    state : String,
-})
+const Coffee = mongoose.model("Coffee", {
+	name: String,
+	price: Number,
+	state: String,
+});
 
-module.exports = Coffee
+module.exports = Coffee;

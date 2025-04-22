@@ -1,16 +1,27 @@
 {
-  "name": "kofi-shop",
-  "version": "1.0.0",
-  "description": "",
-  "main": "index.js",
-  "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
-  },
-  "private": true,
-  "dependencies": {
-    "bootstrap": "^5.3.3",
-    "ejs": "^3.1.10",
-    "express": "^4.21.2",
-    "mongoose": "^8.9.5"
-  }
+	"name": "kofi-shop",
+	"version": "1.0.0",
+	"description": "",
+	"main": "index.js",
+	"scripts": {
+		"test": "jest"
+	},
+	"private": true,
+	"dependencies": {
+		"bootstrap": "^5.3.3",
+		"dotenv": "^16.5.0",
+		"ejs": "^3.1.10",
+		"express": "^4.21.2"
+	},
+	"devDependencies": {
+		"jest": "^29.7.0",
+		"mongodb-memory-server": "^10.1.4",
+		"mongoose": "^8.13.2",
+		"supertest": "^7.1.0"
+	},
+	"jest": {
+		"setupFilesAfterEnv": [
+			"<rootDir>/test/jest.setup.js"
+		]
+	}
 }
