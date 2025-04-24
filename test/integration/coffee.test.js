@@ -38,9 +38,6 @@ describe("GET / ", () => {
 // DELETE LATER
 describe("GET /coffee", () => {
 	it("should return a list of coffees and render the coffee-list view", async () => {
-		// insert data in-memory database
-		//await CoffeeModel.save({ name: "latte", price: 234, state: "available" });
-
 		const res = await request(app)
 			.get("/coffee")
 			.expect(200)
@@ -65,15 +62,29 @@ describe("POST /coffee/new", () => {
 	});
 });
 
-// TODO : update props of coffee
 describe("POST /coffee/:coffeeId/edit", () => {
 	it("should update 'name' property", async () => {
-		const response = await request(app).post("/coffee/new").send(coffeePayload);
-		expect(response.status).toBe(302);
+		// -- create new instance
+		await request(app).post("/coffee/new").send(coffeePayload);
 
-		// update
+		// -- update
+		// get the id of created instance
+		const coffeeResponse = await request(app).get("/coffee");
+		const coffeeData = parseCoffeeData(coffeeResponse.text);
 
-		// get
+		// update name property
+		const updatedCoffee = { ...coffeePayload, name: "espresso macchiato" };
+		await request(app)
+			.post(`/coffee/${coffeeData[0].id}/edit`)
+			.send(updatedCoffee);
+
+		// -- check the result
+		const coffeeUpdateResponse = await request(app).get("/coffee");
+		const coffeeUpdateData = parseCoffeeData(coffeeUpdateResponse.text);
+
+		expect(coffeeUpdateResponse.status).toEqual(200);
+		expect(coffeeUpdateData[0].id).toEqual(coffeeData[0].id);
+		expect(coffeeUpdateData[0].name).toEqual(updatedCoffee.name);
 	});
 });
 
@@ -88,7 +99,7 @@ describe("GET /coffee", () => {
 
 // TODO : delete coffee
 describe("DELETE /coffee", () => {
-	it("should return a list of coffees", async () => {
+	it("should delete coffee with id", async () => {
 		console.log("under construction 🚧");
 		// delete
 		// get
