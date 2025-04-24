@@ -14,7 +14,7 @@ A basic management system for a coffee shop to handle coffees (name, price, avai
 ## Developement
 
 ```bash
-  npm install
+npm install
 ```
 
 ```bash
