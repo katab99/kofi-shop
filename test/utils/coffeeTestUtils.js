@@ -1,4 +1,5 @@
 const cheerio = require("cheerio");
+const { v4: uuidv4 } = require("uuid");
 
 const parseCoffeeData = (text) => {
 	const $ = cheerio.load(text);
@@ -22,4 +23,12 @@ const parseCoffeeData = (text) => {
 		.get();
 };
 
-module.exports = { parseCoffeeData };
+const newCoffeePayload = () => {
+	return {
+		name: `kofi-${uuidv4()}`,
+		price: Math.floor(Math.random() * 1000) + 1, // 1 - 1000
+		state: "available",
+	};
+};
+
+module.exports = { parseCoffeeData, newCoffeePayload };

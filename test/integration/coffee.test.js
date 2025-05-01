@@ -1,8 +1,10 @@
 const request = require("supertest");
 const express = require("express");
 const bodyParser = require("body-parser");
-const { parseCoffeeData } = require("../utils/coffeeTestUtils");
-const { v4: uuidv4 } = require("uuid");
+const {
+	parseCoffeeData,
+	newCoffeePayload,
+} = require("../utils/coffeeTestUtils");
 const app = express();
 
 app.set("view engine", "ejs");
@@ -12,39 +14,10 @@ app.use(express.static("static"));
 
 require("../../routes/index")(app);
 
-const CoffeeModel = require("../../models/coffee");
 let coffeePayload;
 
 beforeEach(() => {
-	coffeePayload = {
-		name: `kofi-${uuidv4()}`,
-		price: 123,
-		state: "available",
-	};
-});
-
-//to make sure testing works - DELETE LATER
-describe("GET / ", () => {
-	it("should return the index page", async () => {
-		const res = await request(app)
-			.get("/")
-			.expect(200)
-			.expect("Content-Type", /html/);
-
-		expect(res.text).toContain("Kofi Shop");
-	});
-});
-
-// DELETE LATER
-describe("GET /coffee", () => {
-	it("should return a list of coffees and render the coffee-list view", async () => {
-		const res = await request(app)
-			.get("/coffee")
-			.expect(200)
-			.expect("Content-Type", /html/);
-
-		expect(res.text).toContain("Coffees");
-	});
+	coffeePayload = newCoffeePayload();
 });
 
 describe("POST /coffee/new", () => {
@@ -62,23 +35,23 @@ describe("POST /coffee/new", () => {
 	});
 });
 
-describe("POST /coffee/:coffeeId/edit", () => {
+describe("PUT /coffee/:coffeeId/edit", () => {
 	it("should update 'name' property", async () => {
-		// -- create new instance
+		// create new instance
 		await request(app).post("/coffee/new").send(coffeePayload);
 
-		// -- update
-		// get the id of created instance
+		// update
+		// -- get the id of created instance
 		const coffeeResponse = await request(app).get("/coffee");
 		const coffeeData = parseCoffeeData(coffeeResponse.text);
 
-		// update name property
+		// -- update name property
 		const updatedCoffee = { ...coffeePayload, name: "espresso macchiato" };
 		await request(app)
-			.post(`/coffee/${coffeeData[0].id}/edit`)
+			.put(`/coffee/${coffeeData[0].id}/edit`)
 			.send(updatedCoffee);
 
-		// -- check the result
+		// check the result
 		const coffeeUpdateResponse = await request(app).get("/coffee");
 		const coffeeUpdateData = parseCoffeeData(coffeeUpdateResponse.text);
 
@@ -88,20 +61,43 @@ describe("POST /coffee/:coffeeId/edit", () => {
 	});
 });
 
-// TODO : list of coffees
 describe("GET /coffee", () => {
-	it("should return a list of coffees", async () => {
-		console.log("under construction 🚧");
-		// create
-		// list
+	it("should return a list of 3 coffees", async () => {
+		// create 3 instance
+		const n = 3;
+		for (let i = 0; i < n; i++) {
+			coffeePayload = newCoffeePayload();
+			await request(app).post("/coffee/new").send(coffeePayload);
+		}
+
+		// list all of them
+		const coffeeListResponse = await request(app).get("/coffee");
+		const coffeeListData = parseCoffeeData(coffeeListResponse.text);
+
+		expect(coffeeListResponse.status).toEqual(200);
+		expect(coffeeListData.length).toEqual(n);
 	});
 });
 
-// TODO : delete coffee
 describe("DELETE /coffee", () => {
 	it("should delete coffee with id", async () => {
-		console.log("under construction 🚧");
+		// create new instance
+		await request(app).post("/coffee/new").send(coffeePayload);
+
 		// delete
-		// get
+		// -- get the id and check if it gets created
+		const coffeeResponse = await request(app).get("/coffee");
+		const coffeeData = parseCoffeeData(coffeeResponse.text);
+
+		expect(coffeeData.length).toBe(1);
+
+		await request(app).delete(`/coffee/${coffeeData[0].id}/delete`);
+
+		// get the result
+		const deleteResponse = await request(app).get("/coffee");
+		const emptyData = parseCoffeeData(deleteResponse.text);
+
+		expect(deleteResponse.status).toBe(200);
+		expect(emptyData.length).toBe(0);
 	});
 });
